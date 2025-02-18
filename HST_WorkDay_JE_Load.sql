@@ -19,17 +19,17 @@ SELECT
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Revenue' AS 'LedgerAccountReferenceIDType'
 	,CASE 
-		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN 10078
+		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-1021-10078'
 		END AS 'LedgerAccountReferenceID'
 	,SUM(hst.dbo.vHST_ME9003.BLTranAmount) AS 'DebitAmount'
 	,0 AS 'CreditAmount'
@@ -64,17 +64,17 @@ SELECT
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Revenue' AS 'LedgerAccountReferenceIDType'
 	,CASE 
-		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN 43040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN 43040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN 41040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN 44040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN 42040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN 44040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN 44040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN 44040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN 44040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN 47040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN 47040
+		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-4075-43040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-4075-43040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-4075-41040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-4075-44040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-4075-42040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-4075-44040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-4075-44040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-4075-44040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-4075-44040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '44-4075-47040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-4075-47040'
 		END AS 'LedgerAccountReferenceID'
 	,0 AS 'DebitAmount'
 	,SUM(hst.dbo.vHST_ME9003.BLTranAmount) AS 'CreditAmount'
@@ -108,17 +108,17 @@ SELECT
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Adjustment' AS 'LedgerAccountReferenceIDType'
 	,CASE 
-		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN 63040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN 63040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN 61040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN 64040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN 62040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN 65040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN 64040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN 64040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN 64040
-		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN 0
-		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN 60040
+		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-5926-63040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-5926-63040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-5926-61040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-5926-64040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-5926-62040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-5926-65040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-5926-64040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-5926-64040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-5926-64040'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '0'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-5926-60040'
 		END AS 'LedgerAccountReferenceID'
 	,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
 	,0 AS 'CreditAmount'
@@ -152,17 +152,17 @@ SELECT
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Adjustment' AS 'LedgerAccountReferenceIDType'
 	,CASE 
-		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN 10078
-		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN 10078
+		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '44-1021-10078'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-1021-10078'
 		
 		END AS 'LedgerAccountReferenceID'
 	,0 AS 'DebitAmount'
