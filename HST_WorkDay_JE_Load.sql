@@ -110,6 +110,7 @@ SELECT
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Adjustment' AS 'LedgerAccountReferenceIDType'
+	/*
 	,CASE 
 		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-5926-63040' 
 		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-5926-63040' 
@@ -123,6 +124,46 @@ SELECT
 		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '44-5926-67040'
 		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-5926-60040'
 		END AS 'LedgerAccountReferenceID'
+*/		
+	
+	SELECT '44-5926-61040' AS LedgerAccountReferenceID, 
+       -(SUM(CASE WHEN FinancialClassDesc = 'MEDICARE PART B' THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc = 'MEDICARE PART B' THEN ADTranAmount ELSE 0 END)) AS Amount
+FROM YourTable
+UNION ALL
+SELECT '44-5926-62040', 
+       -(SUM(CASE WHEN FinancialClassDesc = 'MEDICAID' THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc = 'MEDICAID' THEN ADTranAmount ELSE 0 END))
+FROM YourTable
+UNION ALL
+SELECT '44-5926-63040', 
+       -(SUM(CASE WHEN FinancialClassDesc IN ('ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD') THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc IN ('ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD') THEN ADTranAmount ELSE 0 END))
+FROM YourTable
+UNION ALL
+SELECT '44-5926-64040', 
+       -(SUM(CASE WHEN FinancialClassDesc IN ('COMMERCIAL', 'GOVERNMENT', 'PPO', 'WORKERS COMPENSATION') THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc IN ('COMMERCIAL', 'GOVERNMENT', 'PPO', 'WORKERS COMPENSATION') THEN ADTranAmount ELSE 0 END))
+FROM YourTable
+UNION ALL
+SELECT '44-5926-65040', 
+       -(SUM(CASE WHEN FinancialClassDesc = 'TRICARE' THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc = 'TRICARE' THEN ADTranAmount ELSE 0 END))
+FROM YourTable
+UNION ALL
+SELECT '44-5926-67040', 
+       -SUM(CASE WHEN FinancialClassDesc IN ('SELF PAY', 'MEDICAL OUTREACH CHARITY') THEN ADTranAmount ELSE 0 END)
+FROM YourTable
+UNION ALL
+SELECT '44-5926-60040', 
+       -(SUM(CASE WHEN FinancialClassDesc = 'SELF PAY' THEN CWTranAmount ELSE 0 END) 
+       + SUM(CASE WHEN FinancialClassDesc = 'SELF PAY' THEN BDTranAmount ELSE 0 END))
+FROM YourTable
+UNION ALL
+SELECT '44-1021-10078', 
+       SUM(CWTranAmount) + SUM(ADTranAmount) + SUM(BDTranAmount)
+FROM YourTable;
+
 	-- ,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
 	,CASE 
 		WHEN hst.dbo.vHST_ME9003.FinancialClassDesc IN ('MEDICARE PART B', 'MEDICAID', 'ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD', 'TRICARE') THEN (SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1
