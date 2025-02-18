@@ -3,7 +3,7 @@ SELECT
 	FROM (
 
 /*Revenue Debit*/
-SELECT TOP 1000
+SELECT 
 	CONCAT('HST_',CONVERT(VARCHAR(8), GETDATE(), 112),'_44') AS 'JournalKey'
 	,'1' AS 'Submit'
 	,'1' AS 'AddOnlyJournal'
@@ -32,6 +32,7 @@ SELECT TOP 1000
 		END AS 'LedgerAccountReferenceID'
 	,SUM(hst.dbo.vHST_ME9003.BLTranAmount) AS 'DebitAmount'
 	,0 AS 'CreditAmount'
+	,'Revenue/Debit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
@@ -46,7 +47,7 @@ GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.d
 UNION ALL 
 
 /*Revenue Credit*/
-SELECT TOP 1000
+SELECT
 	CONCAT('HST_',CONVERT(VARCHAR(8), GETDATE(), 112),'_44') AS 'JournalKey'
 	,'1' AS 'Submit'
 	,'1' AS 'AddOnlyJournal'
@@ -75,6 +76,7 @@ SELECT TOP 1000
 		END AS 'LedgerAccountReferenceID'
 	,0 AS 'DebitAmount'
 	,SUM(hst.dbo.vHST_ME9003.BLTranAmount) AS 'CreditAmount'
+	,'Revenue/Credit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
@@ -88,7 +90,7 @@ GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.d
 UNION ALL 
 
 /*Adjustment Debit*/
-SELECT TOP 1000
+SELECT 
 	CONCAT('HST_',CONVERT(VARCHAR(8), GETDATE(), 112),'_44') AS 'JournalKey'
 	,'1' AS 'Submit'
 	,'1' AS 'AddOnlyJournal'
@@ -117,6 +119,7 @@ SELECT TOP 1000
 		END AS 'LedgerAccountReferenceID'
 	,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
 	,0 AS 'CreditAmount'
+	,'Adjustment/Debit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
@@ -130,7 +133,7 @@ GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.d
 UNION ALL 
 
 /*Adjustment Credit*/
-SELECT TOP 1000
+SELECT
 	CONCAT('HST_',CONVERT(VARCHAR(8), GETDATE(), 112),'_44') AS 'JournalKey'
 	,'1' AS 'Submit'
 	,'1' AS 'AddOnlyJournal'
@@ -160,6 +163,7 @@ SELECT TOP 1000
 		END AS 'LedgerAccountReferenceID'
 	,0 AS 'DebitAmount'
 	,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'CreditAmount'
+	,'Adjustment/Credit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
@@ -170,4 +174,5 @@ SELECT TOP 1000
 FROM [HST].[dbo].[vHST_ME9003]
 GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.dbo.vHST_ME9003.FinancialClassDesc 
 )a 
-ORDER BY a.AccountingDate, a.PayorWorktag, a.LedgerAccountReferenceIDType DESC
+WHERE (a.DebitAmount <> 0 OR a.CreditAmount <> 0)
+ORDER BY a.AccountingDate, a.PayorWorktag, a.LedgerAccountReferenceIDType, a.EntryType DESC
