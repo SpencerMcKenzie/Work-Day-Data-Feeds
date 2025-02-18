@@ -11,7 +11,8 @@ SELECT
 	,44 AS 'CompanyReferenceID'
 	,'USD' AS 'Currency'
 	,'ACTUALS' AS 'LedgerType'
-	,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	-- ,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	,CONCAT(hst.dbo.vHST_ME9003.accountingperiod,'/1/',hst.dbo.vHST_ME9003.accountingyear) AS 'AccountingDate'
 	,'FARGLD' as 'JournalSource'
 	,CONCAT('HST ',FORMAT(GETDATE(), 'MMM'),' ',YEAR(GETDATE()),' Journal Load') AS 'JournalEntryMemo'
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
@@ -41,7 +42,7 @@ SELECT
 
 FROM [HST].[dbo].[vHST_ME9003]
 
-GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.dbo.vHST_ME9003.FinancialClassDesc 
+GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.accountingperiod,hst.dbo.vHST_ME9003.accountingyear, hst.dbo.vHST_ME9003.FinancialClassDesc 
 
 
 UNION ALL 
@@ -55,7 +56,8 @@ SELECT
 	,44 AS 'CompanyReferenceID'
 	,'USD' AS 'Currency'
 	,'ACTUALS' AS 'LedgerType'
-	,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	-- ,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	,CONCAT(hst.dbo.vHST_ME9003.accountingperiod,'/1/',hst.dbo.vHST_ME9003.accountingyear) AS 'AccountingDate'
 	,'FARGLD' as 'JournalSource'
 	,CONCAT('HST ',FORMAT(GETDATE(), 'MMM'),' ',YEAR(GETDATE()),' Journal Load') AS 'JournalEntryMemo'
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
@@ -85,7 +87,7 @@ SELECT
 
 FROM [HST].[dbo].[vHST_ME9003]
 
-GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.dbo.vHST_ME9003.FinancialClassDesc 
+GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.accountingperiod,hst.dbo.vHST_ME9003.accountingyear, hst.dbo.vHST_ME9003.FinancialClassDesc 
 
 UNION ALL 
 
@@ -98,7 +100,8 @@ SELECT
 	,44 AS 'CompanyReferenceID'
 	,'USD' AS 'Currency'
 	,'ACTUALS' AS 'LedgerType'
-	,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	-- ,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	,CONCAT(hst.dbo.vHST_ME9003.accountingperiod,'/1/',hst.dbo.vHST_ME9003.accountingyear) AS 'AccountingDate'
 	,'FARGLD' as 'JournalSource'
 	,CONCAT('HST ',FORMAT(GETDATE(), 'MMM'),' ',YEAR(GETDATE()),' Journal Load') AS 'JournalEntryMemo'
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
@@ -128,7 +131,7 @@ SELECT
 
 
 FROM [HST].[dbo].[vHST_ME9003]
-GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.dbo.vHST_ME9003.FinancialClassDesc 
+GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.accountingperiod,hst.dbo.vHST_ME9003.accountingyear, hst.dbo.vHST_ME9003.FinancialClassDesc 
 
 UNION ALL 
 
@@ -141,7 +144,8 @@ SELECT
 	,44 AS 'CompanyReferenceID'
 	,'USD' AS 'Currency'
 	,'ACTUALS' AS 'LedgerType'
-	,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	--,hst.dbo.vHST_ME9003.postdate AS 'AccountingDate'
+	,CONCAT(hst.dbo.vHST_ME9003.accountingperiod,'/1/',hst.dbo.vHST_ME9003.accountingyear) AS 'AccountingDate'
 	,'FARGLD' as 'JournalSource'
 	,CONCAT('HST ',FORMAT(GETDATE(), 'MMM'),' ',YEAR(GETDATE()),' Journal Load') AS 'JournalEntryMemo'
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
@@ -172,7 +176,8 @@ SELECT
 
 
 FROM [HST].[dbo].[vHST_ME9003]
-GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.postdate, hst.dbo.vHST_ME9003.FinancialClassDesc 
+GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.accountingperiod,hst.dbo.vHST_ME9003.accountingyear, hst.dbo.vHST_ME9003.FinancialClassDesc 
 )a 
 WHERE (a.DebitAmount <> 0 OR a.CreditAmount <> 0)
+	AND YEAR(a.AccountingDate) = 2024 AND MONTH(a.AccountingDate) = 6
 ORDER BY a.AccountingDate, a.PayorWorktag, a.LedgerAccountReferenceIDType, a.EntryType DESC
