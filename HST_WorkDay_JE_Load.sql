@@ -1,5 +1,6 @@
 SELECT 
-	* 
+	*
+	,(a.DebitAmount + (a.CreditAmount *-1)) AS 'TotalAmt'
 	FROM (
 
 /*Revenue Debit*/
@@ -36,6 +37,7 @@ SELECT
 	,'Revenue/Debit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
+	,hst.dbo.vHST_ME9003.financialclass AS 'FinancialClass'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
@@ -81,6 +83,7 @@ SELECT
 	,'Revenue/Credit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
+	,hst.dbo.vHST_ME9003.financialclass AS 'FinancialClass'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
@@ -108,23 +111,29 @@ SELECT
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Adjustment' AS 'LedgerAccountReferenceIDType'
 	,CASE 
-		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-5926-63040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-5926-63040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-5926-61040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-5926-64040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-5926-62040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-5926-65040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-5926-64040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-5926-64040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-5926-64040'
-		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '0'
+		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-5926-63040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-5926-63040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 3  THEN '44-5926-61040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 4  THEN '44-5926-64040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 5  THEN '44-5926-62040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 6  THEN '44-5926-65040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 7  THEN '44-5926-64040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 8  THEN '44-5926-64040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 9  THEN '44-5926-64040' 
+		WHEN hst.dbo.vHST_ME9003.financialclass = 10 THEN '44-5926-67040'
 		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-5926-60040'
 		END AS 'LedgerAccountReferenceID'
-	,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
+	-- ,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
+	,CASE 
+		WHEN hst.dbo.vHST_ME9003.FinancialClassDesc IN ('MEDICARE PART B', 'MEDICAID', 'ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD', 'TRICARE') THEN (SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1
+		WHEN hst.dbo.vHST_ME9003.FinancialClassDesc = 'SELF PAY' THEN (SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.BDTranAmount)) * -1
+	END AS 'DebitAmount'
+
 	,0 AS 'CreditAmount'
 	,'Adjustment/Debit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
+	,hst.dbo.vHST_ME9003.financialclass AS 'FinancialClass'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
@@ -151,6 +160,7 @@ SELECT
 	,'Account_Set_ID' AS 'LedgerAccountReferenceID_ParentIDType'
 	,'Workday' AS 'LedgerAccountReferenceID_ParentID'
 	,'Adjustment' AS 'LedgerAccountReferenceIDType'
+	
 	,CASE 
 		WHEN hst.dbo.vHST_ME9003.financialclass = 1  THEN '44-1021-10078'
 		WHEN hst.dbo.vHST_ME9003.financialclass = 2  THEN '44-1021-10078'
@@ -165,14 +175,17 @@ SELECT
 		WHEN hst.dbo.vHST_ME9003.financialclass = 11 THEN '44-1021-10078'
 		
 		END AS 'LedgerAccountReferenceID'
+		
+
 	,0 AS 'DebitAmount'
 	,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'CreditAmount'
 	,'Adjustment/Credit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,hst.dbo.vHST_ME9003.FinancialClassDesc AS 'PayorWorktag'
+	,hst.dbo.vHST_ME9003.financialclass AS 'FinancialClass'
 	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
-    ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
+    ,'Stats_Integration_Journal_Load' AS 'BP_Comment' 
 
 
 FROM [HST].[dbo].[vHST_ME9003]
@@ -180,4 +193,5 @@ GROUP BY hst.dbo.vHST_ME9003.financialclass, hst.dbo.vHST_ME9003.accountingperio
 )a 
 WHERE (a.DebitAmount <> 0 OR a.CreditAmount <> 0)
 	AND YEAR(a.AccountingDate) = 2024 AND MONTH(a.AccountingDate) = 6
+	-- AND a.LedgerAccountReferenceID = '44-5926-67040'
 ORDER BY a.AccountingDate, a.PayorWorktag, a.LedgerAccountReferenceIDType, a.EntryType DESC
