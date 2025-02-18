@@ -129,40 +129,40 @@ SELECT
 	SELECT '44-5926-61040' AS LedgerAccountReferenceID, 
        -(SUM(CASE WHEN FinancialClassDesc = 'MEDICARE PART B' THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc = 'MEDICARE PART B' THEN ADTranAmount ELSE 0 END)) AS Amount
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-62040', 
        -(SUM(CASE WHEN FinancialClassDesc = 'MEDICAID' THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc = 'MEDICAID' THEN ADTranAmount ELSE 0 END))
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-63040', 
        -(SUM(CASE WHEN FinancialClassDesc IN ('ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD') THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc IN ('ALL KIDS BLUE CROSS', 'BLUE CROSS BLUE SHIELD') THEN ADTranAmount ELSE 0 END))
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-64040', 
        -(SUM(CASE WHEN FinancialClassDesc IN ('COMMERCIAL', 'GOVERNMENT', 'PPO', 'WORKERS COMPENSATION') THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc IN ('COMMERCIAL', 'GOVERNMENT', 'PPO', 'WORKERS COMPENSATION') THEN ADTranAmount ELSE 0 END))
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-65040', 
        -(SUM(CASE WHEN FinancialClassDesc = 'TRICARE' THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc = 'TRICARE' THEN ADTranAmount ELSE 0 END))
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-67040', 
        -SUM(CASE WHEN FinancialClassDesc IN ('SELF PAY', 'MEDICAL OUTREACH CHARITY') THEN ADTranAmount ELSE 0 END)
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-5926-60040', 
        -(SUM(CASE WHEN FinancialClassDesc = 'SELF PAY' THEN CWTranAmount ELSE 0 END) 
        + SUM(CASE WHEN FinancialClassDesc = 'SELF PAY' THEN BDTranAmount ELSE 0 END))
-FROM YourTable
+FROM [HST].[dbo].[vHST_ME9003]
 UNION ALL
 SELECT '44-1021-10078', 
        SUM(CWTranAmount) + SUM(ADTranAmount) + SUM(BDTranAmount)
-FROM YourTable;
+FROM [HST].[dbo].[vHST_ME9003];
 
 	-- ,(SUM(hst.dbo.vHST_ME9003.CWTranAmount) + SUM(hst.dbo.vHST_ME9003.ADTranAmount)) * -1 AS 'DebitAmount'
 	,CASE 
