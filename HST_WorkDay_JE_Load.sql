@@ -25,7 +25,7 @@ SELECT
 	,'Revenue/Debit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,' ' AS 'PayorWorkTag'
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
 
@@ -71,7 +71,7 @@ SELECT
 		WHEN hst.dbo.vHST_ME9003.FinancialClassDesc IN ('SELF PAY') THEN 'SELF PAY'
 		ELSE 'NONE'
 		END AS 'PayorWorkTag'
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
 
@@ -118,7 +118,7 @@ SELECT
 		WHEN hst.dbo.vHST_ME9003.FinancialClassDesc IN ('SELF PAY') THEN 'SELF PAY'
 		ELSE 'NONE'
 		END AS 'PayorWorkTag'
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
 
@@ -160,7 +160,7 @@ SELECT
 		ELSE 'NONE'
 		END AS 'PayorWorkTag'
 	
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
 
@@ -203,7 +203,7 @@ SELECT
 		ELSE 'NONE'
 		END AS 'PayorWorkTag'
 	
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment'
 
@@ -237,7 +237,7 @@ SELECT
 	,'Adjustment/Credit' AS 'EntryType'
 	,'OutpatientStatLoad' AS 'LineMemo'
 	,' ' AS 'PayorWorkTag'
-	,'Need to Find HST Cloumn' AS 'Worktag_Cost_Center_Reference_ID'
+	,' ' AS 'Worktag_Cost_Center_Reference_ID'
     ,'1' AS BP_AutoComplete
     ,'Stats_Integration_Journal_Load' AS 'BP_Comment' 
 
